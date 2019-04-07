@@ -4,33 +4,7 @@ from os.path import join
 
 import cv2
 
-
-def get_frames(video_filename):
-    """Extract video frames
-
-    Keyword Arguments:
-    @param video_filename: The input video file name
-    @type video_filename: str
-
-    @returns: The video frames
-    @rtype: list
-    """
-    # Initializing the video decoder
-    vhandler = cv2.VideoCapture(video_filename)
-
-    # Reading frames
-    v_frames = []
-    while True:
-        ret, frame = vhandler.read()
-        if ret:
-            v_frames.append(frame)
-        else:
-            break
-
-    # Releasing the video
-    vhandler.release()
-
-    return v_frames
+from fhandle import extract_frames, get_unique_frames
 
 
 def save_images(images, out_dir):
@@ -49,17 +23,23 @@ def save_images(images, out_dir):
 
 def main():
     """Main function"""
-    # Param declaration
+
+    # Parameters declaration and parsing
     ap = argparse.ArgumentParser()
-    ap.add_argument('-o', '--out_dir', required=False, default='.',
-                    help='Output directory')
+    ap.add_argument('-of', '--out_dir', required=False,
+                    default='.', help='Output directory')
     ap.add_argument('-i', '--input_video', required=True, help='Input video')
     args = ap.parse_args()
 
-    imgs = get_frames(args.input_video)
-    print('Total frames detected: %d' % len(imgs))
+    frames = extract_frames(args.input_video)
+    print('Total frames detected: %d' % len(frames))
 
-    save_images(imgs, args.out_dir)
+    save_images(frames, join(args.out_dir, 'all'))
+
+    frames = get_unique_frames(frames)
+    print('Unique frames: %d' % len(frames))
+
+    save_images(frames, join(args.out_dir, 'uniques'))
 
 
 if __name__ == '__main__':
