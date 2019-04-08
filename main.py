@@ -21,7 +21,7 @@ def save_images(images, out_dir):
         cv2.imwrite(name, img)
 
 
-def main():
+def __main():
     """Main function"""
 
     # Parameters declaration and parsing
@@ -43,4 +43,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    __main()
