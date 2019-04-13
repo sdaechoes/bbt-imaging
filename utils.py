@@ -56,13 +56,15 @@ def get_match_score(d1, d2):
     return sim
 
 
-def get_unique_frames(images):
+def get_unique_frames(images, thr):
     """From a set of images it returns the unique ones.
     Images can be cropped, rotated or at different resolutions.
 
     Keyword Arguments:
     @param images: The input set of images
     @type images: list
+    @param thr: The threshold to decide if two frames are the same
+    @type thr: int
 
     @returns: The unique images
     @rtype: list
@@ -84,7 +86,7 @@ def get_unique_frames(images):
         else:
             score = get_match_score(prev_d, des)
             print(score)
-            if score <= 50:
+            if score <= thr:
                 u_images.append(img)
             elif last_unique_des.shape[0] < des.shape[0]:
                 u_images[-1] = img

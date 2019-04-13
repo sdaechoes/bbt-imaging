@@ -13,6 +13,8 @@ def __main():
     ap.add_argument('-of', '--out_dir', required=False,
                     default='.', help='Output directory')
     ap.add_argument('-i', '--input_video', required=True, help='Input video')
+    ap.add_argument('-t', '--threshold', required=False, default=50,
+                    help='The threshold to decide if two frames are the same')
     args = ap.parse_args()
 
     frames = extract_frames(args.input_video)
@@ -20,7 +22,7 @@ def __main():
 
     save_images(frames, join(args.out_dir, 'all'))
 
-    frames = get_unique_frames(frames)
+    frames = get_unique_frames(frames, int(args.threshold))
     print('Unique frames: %d' % len(frames))
 
     save_images(frames, join(args.out_dir, 'uniques'))
