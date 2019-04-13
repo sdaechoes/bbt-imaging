@@ -47,12 +47,10 @@ def get_match_score(d1, d2):
 
     sim = 0
     for m, n in matches:
-        if m.distance < 0.75 * n.distance:
+        if m.distance < 0.70 * n.distance:
             sim += 1
 
-    score = sim / min(d1.shape[0], d2.shape[0])
-
-    return score
+    return sim
 
 
 def get_unique_frames(images):
@@ -73,6 +71,7 @@ def get_unique_frames(images):
         print('Processing frame number: %d' % i)
         sift = cv2.xfeatures2d.SIFT_create()
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        gray = cv2.blur(gray, (5, 5))
         _, des = sift.detectAndCompute(gray, None)
 
         if prev_d is None:
@@ -80,7 +79,7 @@ def get_unique_frames(images):
         else:
             score = get_match_score(prev_d, des)
             print(score)
-            if score <= 0.05:
+            if score <= 50:
                 u_images.append(img)
 
         prev_d = des

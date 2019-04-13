@@ -21,7 +21,8 @@ def __main():
     ap.add_argument('-e', '--end', required=True, help='End time in seconds')
     args = ap.parse_args()
 
-    extract_subclip(args.input_video, args.start, args.end, args.out_video)
+    extract_subclip(args.input_video, float(args.start), float(args.end),
+                    args.out_video)
 
 
 if __name__ == '__main__':
