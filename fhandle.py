@@ -65,6 +65,7 @@ def get_unique_frames(images):
     @rtype: list
     """
     u_images = []
+    last_unique_des = None
     prev_d = None
 
     for i, img in enumerate(images):
@@ -76,11 +77,15 @@ def get_unique_frames(images):
 
         if prev_d is None:
             u_images.append(img)
+            last_unique_des = des
         else:
             score = get_match_score(prev_d, des)
             print(score)
             if score <= 50:
                 u_images.append(img)
+            elif last_unique_des.shape[0] < des.shape[0]:
+                u_images[-1] = img
+                last_unique_des = des
 
         prev_d = des
 
