@@ -1,6 +1,6 @@
 # BBT-Imaging
 
-If you are a Big Bang Theory (TV show) fan, it is almost a certainty that at some point you felt curios about the large number of images flashed in the opening theme. How many images are?. Which are those images?. Well, **BBT-imaging** is a small project intended to answer those questions. This is also a pretext to introduce the use of SIFT features in python.
+If you are a Big Bang Theory (TV show) fan, it is almost a certainty that at some point you felt curios about the large number of images flashed in the opening theme. How many images are?. Which are those images?. Well, **BBT-imaging** is a small project intended to answer those questions. It is also a pretext to introduce the use of SIFT features in python.
 
 # Usage
 
