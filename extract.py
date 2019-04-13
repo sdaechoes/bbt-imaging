@@ -2,23 +2,7 @@ import argparse
 
 from os.path import join
 
-import cv2
-
-from fhandle import extract_frames, get_unique_frames
-
-
-def save_images(images, out_dir):
-    """Save a batch of images to disk
-
-    Keyword Arguments:
-    @param images: The images
-    @type images: list
-    @param out_dir: Output directory
-    @type out_dir: str
-    """
-    for i, img in enumerate(images):
-        name = join(out_dir, 'image_%d.jpg' % i)
-        cv2.imwrite(name, img)
+from utils import extract_frames, get_unique_frames, save_images
 
 
 def __main():
@@ -32,7 +16,7 @@ def __main():
     args = ap.parse_args()
 
     frames = extract_frames(args.input_video)
-    print('Total frames detected: %d' % len(frames))
+    print('Total frames extracted: %d' % len(frames))
 
     save_images(frames, join(args.out_dir, 'all'))
 

@@ -1,3 +1,6 @@
+from os import mkdir
+from os.path import join, exists
+
 import cv2
 
 
@@ -90,3 +93,20 @@ def get_unique_frames(images):
         prev_d = des
 
     return u_images  # 108 correct number
+
+
+def save_images(images, out_dir):
+    """Save a batch of images to disk
+
+    Keyword Arguments:
+    @param images: The images
+    @type images: list
+    @param out_dir: Output directory
+    @type out_dir: str
+    """
+    if not exists(out_dir):
+        mkdir(out_dir)
+
+    for i, img in enumerate(images):
+        name = join(out_dir, 'image_%d.jpg' % i)
+        cv2.imwrite(name, img)
